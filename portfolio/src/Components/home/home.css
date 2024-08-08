@@ -185,6 +185,7 @@
   height: 60px;
   box-shadow: inset 0 0 0 8px rgb(255 255 255 /35%);
   gap: 4rem;
+  display:inline
 }
 
 .home__scroll {

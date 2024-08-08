@@ -1,24 +1,47 @@
-import React, { useRef } from 'react';
+import React, { useState} from 'react';
 import "./contact.css";
 import { HiOutlineMail, HiOutlineArrowSmRight } from "react-icons/hi"
 import emailjs from 'emailjs-com';
 
 const Contact = () => {
-    const form = useRef();
+    
 
-    const sendEmail = (e) => {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [message, setMessage] = useState('');
+   
+  
+  
+    const sendEmail = (e) => { 
         e.preventDefault();
-        
-        emailjs.sendForm('service_5iaspkp', 'template_un8a18b', form.current, 'LSmtA1x2ePzSdoFQr')
-            .then((result) => {
-                
-                alert("Email sent successfully!");
-            }, (error) => {
-                
-                alert("Failed to send the email. Please try again.");
-            });
+    
+        const serviceId = 'service_5iaspkp';
+        const templateId = 'template_un8a18b';
+        const publicKey = 'LSmtA1x2ePzSdoFQr';
+    
+        // Create a new object that contains dynamic template params
+        const templateParams = {
+          from_name: name,
+          from_email: email,
+          to_name: 'Neeraj',
+          message: message,
+        };
 
-        e.target.reset();
+        emailjs.send(serviceId, templateId, templateParams, publicKey)
+        .then((response) => {
+         alert("Email sent successfully!");
+          setName('');
+          setEmail('');
+          setMessage('');
+          e.target.reset();
+        }, (error) => {
+                      
+            alert("Failed to send the email. Please try again.");
+                 
+         
+        }  
+    )
+      
     };
   
     return (
@@ -48,20 +71,24 @@ const Contact = () => {
                 <div className="contact__content">
                     <h3 className="contact__title">Write a message</h3>
 
-                    <form ref={form} onSubmit={sendEmail} className="contact__form">
+                    <form  onSubmit={sendEmail} className="contact__form">
                         <div className="contact__form-div">
                             <label className="contact__form-tag">Name</label>
-                            <input type="text" name="name" className="contact__form-input" placeholder="Type your name" required />
+                            <input type="text" name="name" className="contact__form-input" placeholder="Type your name"  value={name}
+                       onChange={(e) => setName(e.target.value)} required />
                         </div>
 
                         <div className="contact__form-div">
                             <label className="contact__form-tag">Email</label>
-                            <input type="email" name="email" className="contact__form-input" placeholder="Type your email" required />
+                            <input type="email" name="email" className="contact__form-input" placeholder="Type your email"
+                             value={email}
+                             onChange={(e) => setEmail(e.target.value)} required />
                         </div>
 
                         <div className="contact__form-div contact__form-area">
                             <label className="contact__form-tag">Message</label>
-                            <textarea name="project" cols="30" rows="10" className="contact__form-input" placeholder="Write a message ..." required></textarea>
+                            <textarea name="project" cols="30" rows="10" className="contact__form-input" placeholder="Write a message ..." value={message}
+                         onChange={(e) => setMessage(e.target.value)} required></textarea>
                         </div>
 
                         <button href="#contact" className="button button--flex">
