@@ -10,7 +10,8 @@ import Contact from './Components/contact/Contact'
 import '@iconscout/unicons/css/line.css';
 import Qualification from './Components/qualification/Qualification'
 import Portfolio from './Components/projects/Portfolio'
-
+import emailjs from 'emailjs-com';
+emailjs.init("LSmtA1x2ePzSdoFQr"); 
 
 
 function App() {
