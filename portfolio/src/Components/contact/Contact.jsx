@@ -11,10 +11,10 @@ const Contact = () => {
         
         emailjs.sendForm('service_5iaspkp', 'template_un8a18b', form.current, 'LSmtA1x2ePzSdoFQr')
             .then((result) => {
-                console.log(result.text);
+                
                 alert("Email sent successfully!");
             }, (error) => {
-                console.log(error.text);
+                
                 alert("Failed to send the email. Please try again.");
             });
 
